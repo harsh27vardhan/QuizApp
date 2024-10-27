@@ -137,6 +137,7 @@ function startApp(){
 
     function endTest(){
         gameContainer.style.display = "none";
+        document.querySelector("main").style.display = "none";
         endContainer.style.display = "flex";
     
         const analysis = document.createElement("div");
