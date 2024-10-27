@@ -198,3 +198,26 @@ main{
     border-radius: 4px;
     width: 100%;
 }
+
+@media (max-width:550px) {
+    .start-window{
+        width: 400px;
+    }
+    .quiz-app{
+        width: 400px;
+    }
+    .end-window{
+        width: 400px;
+    }
+}
+@media (max-width:420px) {
+    .start-window{
+        width: 350px;
+    }
+    .quiz-app{
+        width: 350px;
+    }
+    .end-window{
+        width: 350px;
+    }
+}
