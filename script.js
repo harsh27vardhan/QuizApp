@@ -19,6 +19,8 @@ const optionsContainer =  document.querySelector(".quiz-options")
 
 const timeLeft = document.querySelector(".time-left-value");
 
+const analysis2 = document.createElement("div");
+
 
 
 
@@ -27,6 +29,10 @@ start.addEventListener("click",startApp);
 function startApp(){
     startContainer.style.display = "none";
     gameContainer.style.display = "flex";
+    endContainer.innerHTML = "";
+    analysis2.innerHTML = "";
+    
+    endContainer.style.display = "none";
     // timer = parseInt(difficulty.value);
     // console.log(timer);
 
@@ -65,15 +71,44 @@ function startApp(){
 
     function checkOption(e,optionStatement){
         currentTimer = 1;
+        const ques = document.createElement("div");
+        ques.classList.add("ques");
+        ques.innerText = questions[currentQuestionIndex].question;
+
         if(questions[currentQuestionIndex].answer === optionStatement){
             e.currentTarget.classList.add("correct");
             console.log(e.currentTarget);
             correctAnswerNo++;
+            const ans = document.createElement("div");
+            ans.classList.add("correct");
+            ans.classList.add("quiz-option");
+            ans.innerText = optionStatement;
+            const ansDiv = document.createElement("div");
+            ansDiv.classList.add("ansDiv")
+            ansDiv.append(ques,ans);
+    
+            analysis2.append(ansDiv);
         }
         else{
             e.currentTarget.classList.add("incorrect");
             console.log(e.currentTarget);
+
+            const ans = document.createElement("div");
+            ans.classList.add("correct");
+            ans.classList.add("quiz-option");
+            ans.innerText = questions[currentQuestionIndex].answer;
+            const ans1 = document.createElement("div");
+            ans1.classList.add("incorrect");
+            ans1.classList.add("quiz-option");
+            ans1.innerText = optionStatement;
+            const ansDiv = document.createElement("div");
+            ansDiv.classList.add("ansDiv")
+            ansDiv.append(ques,ans,ans1);
+    
+            analysis2.append(ansDiv);
         }
+
+
         const allOptions = document.querySelectorAll(".quiz-option");
         allOptions.forEach((element)=>{
             // if(e.currentTarget!==element.innerText && element.innerText !== optionStatement){
@@ -137,34 +172,22 @@ function startApp(){
 
     function endTest(){
         gameContainer.style.display = "none";
-        document.querySelector("main").style.display = "none";
         endContainer.style.display = "flex";
-    
-        const analysis = document.createElement("div");
-        const correctStatement = document.createElement("p");
-        correctStatement.innerText = `Correct Answers : ${correctAnswerNo}`;
-        const incorrectStatement = document.createElement("p");
-        incorrectStatement.innerText = `Incorrect Answers : ${totalQuestionsCount-correctAnswerNo}`;
-        analysis.append(correctStatement,incorrectStatement);
-        endContainer.append(analysis);
-    
-        const analysis2 = document.createElement("div");
-        questions.forEach((element)=>{
-            const ques = document.createElement("div");
-            ques.classList.add("ques");
-            ques.innerText = element.question;
-            const ans = document.createElement("div");
-            ans.classList.add("ans");
-            ans.innerText = element.answer;
-    
-            const ansDiv = document.createElement("div");
-            ansDiv.classList.add("ansDiv")
-            ansDiv.append(ques,ans);
-    
-            analysis2.append(ansDiv);
-        });
+
         analysis2.classList.add("analysis2");
+       
+        endContainer.innerHTML = "";
+        const theEnd = document.createElement("h1");
+        theEnd.innerText = "THE END";
+        endContainer.append(theEnd);
         endContainer.append(analysis2);
+
+        const resetBtn = document.createElement("button");
+        resetBtn.classList.add("reset-btn");
+        resetBtn.innerText = "Reset";
+        endContainer.append(resetBtn);
+
+        resetBtn.addEventListener("click",startApp);
     }
     
     // let interval = setInterval(decrementTime,1);
